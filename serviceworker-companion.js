@@ -35,3 +35,16 @@ function initializeServiceWorker() {
         })
     }
 }
+
+function initializeDB() {
+    const dbOpenRequest = window.indexedDB.open("ItemDB", 1);
+
+    dbOpenRequest.onupgradeneeded = function(event) {
+        let db = event.target.result;
+
+        let objectStore = db.createObjectStore("ItemDB", { keyPath: "item_id", autoIncrement: true });
+        objectStore.createIndex("title", "title", { unique: false });
+        objectStore.createIndex("date", "date", { unique: false });
+        objectStore.createIndex("image", "image", { unique: false });
+    };
+}
