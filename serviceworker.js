@@ -56,15 +56,29 @@ function onFetch(event) {
     );
 }
 
-self.addEventListener('sync',onSync);
+self.addEventListener('sync', onSync);
 function onSync(event) {
     if(event.tag == 'example-sync') {
         event.waitUtil(function() {
-            return getIndexedDB()
+            return getAllIndexedDB()
             .then(sendToServer)
             .catch(function(error) {
                 return error;
             })
         });
     }
+}
+
+function getAllIndexedDB() {
+    return new Promise(function(resolve, reject) {
+        let dbOpenRequest = indexedDB.open("ItemDB");
+        dbOpenRequest.onsuccess = function(event) {
+            this.result.transaction(["ItemDB"]).objectStore("ItemDB").getAll().onsuccess = function(event) {
+                resolve(event.target.result);
+            };
+        };
+        dbOpenRequest.onerror = function(error) {
+            reject(error);
+        };
+    });
 }
