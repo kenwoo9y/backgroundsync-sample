@@ -55,3 +55,16 @@ function onFetch(event) {
         })
     );
 }
+
+self.addEventListener('sync',onSync);
+function onSync(event) {
+    if(event.tag == 'example-sync') {
+        event.waitUtil(function() {
+            return getIndexedDB()
+            .then(sendToServer)
+            .catch(function(error) {
+                return error;
+            })
+        });
+    }
+}
