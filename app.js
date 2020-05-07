@@ -1,5 +1,22 @@
 // get element
 const form = document.getElementById('form');
+const title = document.getElementById('title');
+const date = document.getElementById('date');
+const file = document.getElementById('image');
+
+function ImageToBase64(image, type) {
+    // new canvas
+    let canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    // draw image
+    let ctx = canvas.getContext('2d');
+    ctx.drawImage(image, 0, 0);
+
+    // convert to base64
+    return canvas.toDataURL(type);
+}
 
 function initializeServiceWorker() {
     // register service worker
@@ -37,7 +54,7 @@ function initializeServiceWorker() {
 }
 
 function initializeDB() {
-    const dbOpenRequest = window.indexedDB.open("ItemDB", 1);
+    let dbOpenRequest = window.indexedDB.open("ItemDB", 1);
 
     dbOpenRequest.onupgradeneeded = function(event) {
         let db = event.target.result;
@@ -47,4 +64,26 @@ function initializeDB() {
         objectStore.createIndex("date", "date", { unique: false });
         objectStore.createIndex("image", "image", { unique: false });
     };
+}
+
+function saveData() {
+    return new Promise(function(resolve, reject) {
+        let base64 = ImageToBase64(image, "image/jpeg");
+        let tmpItem = { title: title.value, date: date.value, image: base64 };
+
+        let dbOpenRequest = window.indexedDB.open("ItemDB");
+
+        dbOpenRequest.onsuccess = function(event) {
+            let db = event.target.result;
+            let transaction = db.transaction(["ItemDB"], "readwrite");
+            let objectStore = transaction.objectStore("ItemDB");
+            objectStore.add(tmpItem);
+            resolve();
+        };
+
+        dbOpenRequest.onerror = function(error) {
+            reject(error);
+        };
+
+    });
 }
