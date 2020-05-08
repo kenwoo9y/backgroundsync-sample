@@ -87,3 +87,22 @@ function saveData() {
 
     });
 }
+
+function fetchData() {
+    return new Promise(function(resolve, reject) {
+        let dbOpenRequest = window.indexedDB.open("ItemDB");
+
+        dbOpenRequest.onsuccess = function(event) {
+            let db = event.target.result;
+            let transaction = db.transaction(["ItemDB"]);
+            let objectStore = transaction.objectStore("ItemDB");
+            objectStore.getAll().onsuccess = function(event) {
+                resolve(event.target.result);
+            };
+        };
+
+        dbOpenRequest.onerror = function(error) {
+            reject(error);
+        };
+    });
+}
