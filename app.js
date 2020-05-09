@@ -69,14 +69,16 @@ function initializeDB() {
 function saveData() {
     return new Promise(function(resolve, reject) {
         let base64 = ImageToBase64(image, "image/jpeg");
-        let tmpItem = { title: title.value, date: date.value, image: base64 };
+        let tmpItem = { 
+            title: title.value, 
+            date: date.value, 
+            image: base64 
+        };
 
         let dbOpenRequest = window.indexedDB.open("ItemDB");
 
         dbOpenRequest.onsuccess = function(event) {
-            let db = event.target.result;
-            let transaction = db.transaction(["ItemDB"], "readwrite");
-            let objectStore = transaction.objectStore("ItemDB");
+            let objectStore = this.result.transaction(["ItemDB"], "readwrite").transaction.objectStore("ItemDB");
             objectStore.add(tmpItem);
             resolve();
         };
