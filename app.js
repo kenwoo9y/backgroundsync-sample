@@ -78,8 +78,7 @@ function saveData() {
         let dbOpenRequest = window.indexedDB.open("ItemDB");
 
         dbOpenRequest.onsuccess = function(event) {
-            let objectStore = this.result.transaction(["ItemDB"], "readwrite").transaction.objectStore("ItemDB");
-            objectStore.add(tmpItem);
+            this.result.transaction(["ItemDB"], "readwrite").objectStore("ItemDB").add(tmpItem);
             resolve();
         };
 
