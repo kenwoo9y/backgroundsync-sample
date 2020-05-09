@@ -66,6 +66,15 @@ function initializeDB() {
     };
 }
 
+function checkInternet() {
+    event.preventDefault();
+    if(navigator.onLine) {
+        sendData();
+    } else {
+        alert("You are offline!");
+    }
+}
+
 function saveData() {
     return new Promise(function(resolve, reject) {
         let base64 = ImageToBase64(image, "image/jpeg");
