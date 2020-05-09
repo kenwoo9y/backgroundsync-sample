@@ -82,3 +82,21 @@ function getAllIndexedDB() {
         };
     });
 }
+
+function sendToServer(response) {
+    let sendItem = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(response)
+    };
+
+    // unfinished
+    return fetch('', sendItem)
+    .then(function(response) {
+        return response.text();
+    }).catch(function(error) {
+        return error;
+    });
+}
