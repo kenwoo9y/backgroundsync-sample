@@ -105,6 +105,21 @@ function fetchData() {
     });
 }
 
+function clearData() {
+    return new Promise(function(resolve, reject) {
+        let dbOpenRequest = window.indexedDB.open("ItemDB");
+
+        dbOpenRequest.onsuccess = function(event) {
+            this.result.transaction(["ItemDB"], "readwrite").objectStore("ItemDB").clear();
+            resolve();
+        };
+
+        dbOpenRequest.onerror = function(event) {
+            reject(this.error);
+        };
+    });
+}
+
 function sendData() {
     fetchData().then(function(response) {
         let sendItem = {
