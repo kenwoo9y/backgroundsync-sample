@@ -94,8 +94,8 @@ function sendToServer(response) {
 
     // unfinished
     return fetch('', sendItem)
-    .then(function(response) {
-        return response.text();
+    .then(function(rez) {
+        return rez.text();
     }).catch(function(error) {
         return error;
     });

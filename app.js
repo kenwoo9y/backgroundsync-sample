@@ -66,6 +66,31 @@ function initializeDB() {
     };
 }
 
+function checkIndexedDB() {
+    if(navigator.onLine) {
+        let dbOpenRequest = window.indexedDB.open("ItemDB");
+
+        dbOpenRequest.onsuccess = function(event) {
+            this.result.transaction(["ItemDB"]).objectStore("ItemDB").getAll().onsuccess = function(event) {
+                // unfinished
+                window.fetch('', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(event.target.result)
+                }).then(function(rez) {
+                    return rez.text();
+                }).then(function(response) {
+                    dbOpenRequest.result.transaction(["ItemDB"], "readwrite").objectStore("ItemDB").clear();
+                }).catch(function(error) {
+                    console.log(error);
+                })
+            };
+        };
+    }
+}
+
 function checkInternet() {
     event.preventDefault();
     if(navigator.onLine) {
