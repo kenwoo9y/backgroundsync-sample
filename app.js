@@ -4,20 +4,6 @@ const title = document.getElementById('title');
 const date = document.getElementById('date');
 const file = document.getElementById('image');
 
-function ImageToBase64(image, type) {
-    // new canvas
-    let canvas = document.createElement('canvas');
-    canvas.width = image.width;
-    canvas.height = image.height;
-
-    // draw image
-    let ctx = canvas.getContext('2d');
-    ctx.drawImage(image, 0, 0);
-
-    // convert to base64
-    return canvas.toDataURL(type);
-}
-
 function initializeServiceWorker() {
     // register service worker
     if (navigator.serviceWorker) {
@@ -171,4 +157,18 @@ function sendData() {
     .catch(function(error) {
         console.log(error);
     });
+}
+
+function ImageToBase64(image, type) {
+    // new canvas
+    let canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    // draw image
+    let ctx = canvas.getContext('2d');
+    ctx.drawImage(image, 0, 0);
+
+    // convert to base64
+    return canvas.toDataURL(type);
 }
