@@ -182,3 +182,7 @@ window.addEventListener('online', function() {
         });
     }
 });
+
+window.addEventListener('offline', function() {
+    alert('You have lost internet access!');
+});
