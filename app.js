@@ -4,6 +4,10 @@ const title = document.getElementById('title');
 const date = document.getElementById('date');
 const file = document.getElementById('image');
 
+initializeServiceWorker();
+initializeDB();
+checkIndexedDB();
+
 function initializeServiceWorker() {
     // register service worker
     if (navigator.serviceWorker) {
