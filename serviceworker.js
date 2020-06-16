@@ -51,7 +51,7 @@ function onFetch(event) {
                 if (event.request.mode === 'navigate' || (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
                     return caches.match('/backgroundsync-sample/offline.html');
                 }
-            })
+            });
         })
     );
 }
