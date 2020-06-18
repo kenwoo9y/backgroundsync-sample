@@ -1,9 +1,3 @@
-// get element
-const form = document.getElementById('form');
-const title = document.getElementById('title');
-const date = document.getElementById('date');
-const file = document.getElementById('image');
-
 initializeServiceWorker();
 initializeDB();
 checkIndexedDB();
@@ -89,6 +83,12 @@ function checkInternet() {
         alert("You are offline!");
     }
 }
+
+// get element
+const form = document.getElementById('form');
+const title = document.getElementById('title');
+const date = document.getElementById('date');
+const file = document.getElementById('image');
 
 function saveData() {
     return new Promise(function(resolve, reject) {
