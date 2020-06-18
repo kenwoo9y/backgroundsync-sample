@@ -60,7 +60,7 @@ self.addEventListener('sync', onSync);
 function onSync(event) {
     if(event.tag == 'example-sync') {
         event.waitUtil(function() {
-            return getAllIndexedDB()
+            return getAllFromIndexedDB()
             .then(sendToServer)
             .catch(function(error) {
                 return error;
@@ -69,17 +69,29 @@ function onSync(event) {
     }
 }
 
-function getAllIndexedDB() {
+function getAllFromIndexedDB() {
     return new Promise(function(resolve, reject) {
         let dbOpenRequest = indexedDB.open("ItemDB");
+
         dbOpenRequest.onsuccess = function(event) {
-            this.result.transaction(["ItemDB"]).objectStore("ItemDB").getAll().onsuccess = function(event) {
+            let db = event.target.result;
+            let transaction = db.transaction(["ItemDB"]);
+            let objectStore = transaction.objectStore("ItemDB");
+            let getAllRequest = objectStore.getAll();
+
+            getAllRequest.onsuccess = function(event) {
                 resolve(event.target.result);
             };
+
+            getAllRequest.onerror = function(error) {
+                reject(error);
+            };
         };
+        
         dbOpenRequest.onerror = function(error) {
             reject(error);
         };
+        
     });
 }
 
