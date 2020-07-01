@@ -102,7 +102,7 @@ function saveData() {
         let dbOpenRequest = window.indexedDB.open("ItemDB");
 
         dbOpenRequest.onsuccess = function(event) {
-            this.result.transaction(["ItemDB"], "readwrite").objectStore("ItemDB").add(tmpItem);
+            event.target.result.transaction(["ItemDB"], "readwrite").objectStore("ItemDB").add(tmpItem);
             resolve();
         };
 
@@ -118,7 +118,7 @@ function fetchData() {
         let dbOpenRequest = window.indexedDB.open("ItemDB");
 
         dbOpenRequest.onsuccess = function(event) {
-            this.result.transaction(["ItemDB"]).objectStore("ItemDB").getAll().onsuccess = function(event) {
+            event.target.result.transaction(["ItemDB"]).objectStore("ItemDB").getAll().onsuccess = function(event) {
                 resolve(event.target.result);
             };
         };
@@ -134,12 +134,12 @@ function clearData() {
         let dbOpenRequest = window.indexedDB.open("ItemDB");
 
         dbOpenRequest.onsuccess = function(event) {
-            this.result.transaction(["ItemDB"], "readwrite").objectStore("ItemDB").clear();
+            event.target.result.transaction(["ItemDB"], "readwrite").objectStore("ItemDB").clear();
             resolve();
         };
 
-        dbOpenRequest.onerror = function(event) {
-            reject(this.error);
+        dbOpenRequest.onerror = function(error) {
+            reject(error);
         };
     });
 }
