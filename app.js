@@ -1,6 +1,6 @@
 initializeServiceWorker();
-initializeDB();
-checkIndexedDB();
+initializeIdb();
+checkIdb();
 
 function initializeServiceWorker() {
     // register service worker
@@ -37,7 +37,7 @@ function initializeServiceWorker() {
     }
 }
 
-function initializeDB() {
+function initializeIdb() {
     let dbOpenRequest = window.indexedDB.open("ItemDB", 1);
 
     dbOpenRequest.onupgradeneeded = function(event) {
@@ -50,7 +50,7 @@ function initializeDB() {
     };
 }
 
-function checkIndexedDB() {
+function checkIdb() {
     if(navigator.onLine) {
         let dbOpenRequest = window.indexedDB.open("ItemDB");
 
