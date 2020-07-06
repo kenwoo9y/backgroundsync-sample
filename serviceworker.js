@@ -96,19 +96,18 @@ function getAllFromIndexedDB() {
 }
 
 function sendToServer(response) {
-    let sendItem = {
+    // unfinished
+    return fetch('', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(response)
-    };
-
-    // unfinished
-    return fetch('', sendItem)
-    .then(function(rez) {
-        return rez.text();
-    }).catch(function(error) {
+    })
+    .then(function(response) {
+        return response.text();
+    })
+    .catch(function(error) {
         return error;
     });
 }
