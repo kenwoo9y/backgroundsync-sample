@@ -69,9 +69,9 @@ function checkIdb() {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(event.target.result)
-                }).then(function(rez) {
-                    return rez.text();
                 }).then(function(response) {
+                    return response.text();
+                }).then(function() {
                     dbOpenRequest.result.transaction(["ItemDB"], "readwrite").objectStore("ItemDB").clear();
                 }).catch(function(error) {
                     console.log(error);
