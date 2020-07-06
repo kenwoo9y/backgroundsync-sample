@@ -146,16 +146,14 @@ function clearData() {
 
 function sendData() {
     fetchData().then(function(response) {
-        let sendItem = {
+        // unfinished
+        return window.fetch('', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(response)
-        };
-
-        // unfinished
-        return window.fetch('', sendItem);
+        });
     })
     .then(clearData)
     .catch(function(error) {
