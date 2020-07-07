@@ -2,7 +2,7 @@ initializeServiceWorker();
 initializeIndexedDB();
 checkIndexedDB();
 
-// get element
+// get elements
 const form = document.getElementById('form');
 const title = document.getElementById('title');
 const date = document.getElementById('date');
