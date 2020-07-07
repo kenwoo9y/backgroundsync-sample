@@ -119,7 +119,6 @@ function saveData() {
         dbOpenRequest.onerror = function(error) {
             reject(error);
         };
-
     });
 }
 
