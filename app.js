@@ -102,8 +102,18 @@ function saveData() {
         let dbOpenRequest = window.indexedDB.open("ItemDB");
 
         dbOpenRequest.onsuccess = function(event) {
-            event.target.result.transaction(["ItemDB"], "readwrite").objectStore("ItemDB").add(tmpItem);
-            resolve();
+            let db = event.target.result;
+            let transaction = db.transaction(["ItemDB"], "readwrite");
+            let objectStore = transaction.objectStore("ItemDB");
+            let addRequest = objectStore.add(tmpItem);
+
+            addRequest.onsuccess = function(event) {
+                resolve();
+            };
+
+            addRequest.onerror = function(error) {
+                reject(error);
+            };
         };
 
         dbOpenRequest.onerror = function(error) {
