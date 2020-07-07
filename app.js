@@ -118,8 +118,17 @@ function fetchData() {
         let dbOpenRequest = window.indexedDB.open("ItemDB");
 
         dbOpenRequest.onsuccess = function(event) {
-            event.target.result.transaction(["ItemDB"]).objectStore("ItemDB").getAll().onsuccess = function(event) {
+            let db = event.target.result;
+            let transaction = db.transaction(["ItemDB"]);
+            let objectStore = transaction.objectStore("ItemDB");
+            let getAllRequest = objectStore.getAll();
+
+            getAllRequest.onsuccess = function(event) {
                 resolve(event.target.result);
+            };
+
+            getAllRequest.onerror = function(error) {
+                reject(error);
             };
         };
 
