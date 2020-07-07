@@ -1,6 +1,6 @@
 initializeServiceWorker();
-initializeIdb();
-checkIdb();
+initializeIndexedDB();
+checkIndexedDB();
 
 // get element
 const form = document.getElementById('form');
@@ -43,7 +43,7 @@ function initializeServiceWorker() {
     }
 }
 
-function initializeIdb() {
+function initializeIndexedDB() {
     let dbOpenRequest = window.indexedDB.open("ItemDB", 1);
 
     dbOpenRequest.onupgradeneeded = function(event) {
@@ -56,7 +56,7 @@ function initializeIdb() {
     };
 }
 
-function checkIdb() {
+function checkIndexedDB() {
     if(navigator.onLine) {
         let dbOpenRequest = window.indexedDB.open("ItemDB");
 
