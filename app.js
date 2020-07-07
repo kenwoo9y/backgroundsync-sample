@@ -152,8 +152,18 @@ function clearData() {
         let dbOpenRequest = window.indexedDB.open("ItemDB");
 
         dbOpenRequest.onsuccess = function(event) {
-            event.target.result.transaction(["ItemDB"], "readwrite").objectStore("ItemDB").clear();
-            resolve();
+            let db = event.target.result;
+            let transaction = db.transaction(["ItemDB"], "readwrite");
+            let objectStore = transaction.objectStore("ItemDB");
+            let clearRequest = objectStore.clear();
+
+            clearRequest.onsuccess = function(event) {
+                resolve();
+            };
+
+            clearRequest.onerror = function(error) {
+                reject(error);
+            };
         };
 
         dbOpenRequest.onerror = function(error) {
