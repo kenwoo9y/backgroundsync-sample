@@ -133,7 +133,8 @@ function fetchData() {
             let getAllRequest = objectStore.getAll();
 
             getAllRequest.onsuccess = function(event) {
-                resolve(event.target.result);
+                let objects = event.target.result
+                resolve(objects);
             };
 
             getAllRequest.onerror = function(error) {
