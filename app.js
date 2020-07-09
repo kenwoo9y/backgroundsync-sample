@@ -206,9 +206,9 @@ function ImageToBase64(image, type) {
 
 window.addEventListener('online', function() {
     if(!navigator.serviceWorker && !window.SyncManager) {
-        fetchData().then(function(response) {
-            if(response.length > 0) {
-                return sendData();
+        fetchData().then(function(objects) {
+            if(objects.length > 0) {
+                sendData();
             }
         });
     }
