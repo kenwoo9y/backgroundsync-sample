@@ -33,14 +33,7 @@ function initializeServiceWorker() {
         .catch(function(error) {
             console.log('Registration failed with ' + error);
         })
-    } else {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            saveData().then(function() {
-                checkInternet();
-            });
-        })
-    }
+    } 
 }
 
 function initializeIndexedDB() {
