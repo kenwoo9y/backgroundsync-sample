@@ -18,7 +18,8 @@ function initializeServiceWorker() {
         .then(function(registration) {
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
-                saveData().then(function() {
+                saveData()
+                .then(function() {
                     if(registration.sync) {
                         registration.sync.register('example-sync')
                         .catch(function(error) {
